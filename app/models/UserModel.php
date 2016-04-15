@@ -78,6 +78,13 @@ class UserModel {
 		}
 		return (false);
 	}
+	
+	public function validateUser($username, $password) {
+		if(!empty ($username) && !empty ($password))
+			if($this->UsersDAO->validate($username, $password))
+				return true;
+		return false;
+	}
 	public function __destruct() {
 		$this->UsersDAO = null;
 		$this->dbmanager->closeConnection ();

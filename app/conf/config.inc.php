@@ -15,6 +15,7 @@ define("ACTION_CREATE_USER", 55);
 define("ACTION_UPDATE_USER", 66);
 define("ACTION_DELETE_USER", 77);
 define("ACTION_SEARCH_USERS", 88);
+define("ACTION_VALIDATE_USER", 99);
 
 /* HTTP status codes 2xx*/
 define("HTTPSTATUS_OK", 200);

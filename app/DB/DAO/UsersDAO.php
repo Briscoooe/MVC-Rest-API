@@ -22,6 +22,21 @@ class UsersDAO {
 		
 		return ($rows);
 	}
+	
+	public function validate($username, $password) {
+		$sql = "SELECT * ";
+		$sql .= "FROM users ";
+		$sql .= "WHERE users.email=? ";
+		$sql .= "AND users.password=? ";
+		
+		$stmt = $this->dbManager->prepareQuery ( $sql );
+		$this->dbManager->bindValue ( $stmt, 1, $username, $this->dbManager->STRING_TYPE );
+		$this->dbManager->bindValue ( $stmt, 2, $password, $this->dbManager->INT_TYPE );
+		$this->dbManager->executeQuery ( $stmt );
+		$rows = $this->dbManager->fetchResults ( $stmt );
+
+		return ($rows);
+	}
 	public function insert($parametersArray) {
 		// insertion assumes that all the required parameters are defined and set
 		$sql = "INSERT INTO users (name, surname, email, password) ";

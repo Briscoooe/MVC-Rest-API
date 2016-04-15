@@ -31,6 +31,11 @@ class UserController {
 				$string = $parameteres ["SearchingString"];
 				$this->searchUsers ( $string );
 				break;
+			case ACTION_VALIDATE_USER :
+				$username = $parameteres["username"];
+				$password = $parameteres["password"];
+				$this->validateUser($username, $password);
+				break;	
 			case null :
 				$this->slimApp->response ()->setStatus ( HTTPSTATUS_BADREQUEST );
 				$Message = array (
@@ -129,6 +134,15 @@ class UserController {
 					GENERAL_MESSAGE_LABEL => GENERAL_INVALIDBODY 
 			);
 			$this->model->apiResponse = $Message;
+		}
+	}
+	private function validateUser($username, $password) {
+		if($this->model->validateUser ($username, $password)){	
+			$this->slimApp->response ()->setStatus ( HTTPSTATUS_OK );
+			$this->model->apiResponse = true;
+		} else {
+			$this->slimApp->response ()->setStatus ( HTTPSTATUS_UNAUTHORIZED );
+			$this->model->apiResponse = false;
 		}
 	}
 }
