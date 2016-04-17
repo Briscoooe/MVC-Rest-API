@@ -10,7 +10,7 @@ class SongsDAO {
 		$sql = "SELECT * ";
 		$sql .= "FROM songs ";
 		if ($id != null)
-			$sql .= "WHERE songs.id=? ";
+			$sql .= "WHERE songs.songId=? ";
 		$sql .= "ORDER BY songs.title ";
 		
 		$stmt = $this->dbManager->prepareQuery ( $sql );
@@ -38,7 +38,7 @@ class SongsDAO {
 	
 	public function update($parametersArray, $songID) {
 		// /create an UPDATE sql statement (reads the parametersArray - this contains the fields submitted in the HTML5 form)
-		$sql = "UPDATE songs SET artistId = ?, title = ?, length = ?, genre = ? WHERE id = ?";
+		$sql = "UPDATE songs SET artistId = ?, title = ?, length = ?, genre = ? WHERE songId = ?";
 		
 		$this->dbManager->openConnection ();
 		$stmt = $this->dbManager->prepareQuery ( $sql );
@@ -56,7 +56,7 @@ class SongsDAO {
 	
 	public function delete($songID) {
 		$sql = "DELETE FROM songs ";
-		$sql .= "WHERE songs.id = ?";
+		$sql .= "WHERE songs.songId = ?";
 		
 		$stmt = $this->dbManager->prepareQuery ( $sql );
 		$this->dbManager->bindValue ( $stmt, 1, $songID, $this->dbManager->INT_TYPE );

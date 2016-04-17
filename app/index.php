@@ -3,8 +3,8 @@
 /*
  * TODO:
  * Add search for users, artists and songs
- * Validate that artist being added with song exists in artists table - INCLUDE new response code
- * Add different response types
+ * Validate that artist being added with song exists in artists table - INCLUDE new response code if possible
+ * Add XML response type
  */
 require_once "../Slim/Slim.php";
 Slim\Slim::registerAutoloader ();

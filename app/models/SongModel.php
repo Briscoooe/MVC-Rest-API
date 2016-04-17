@@ -63,7 +63,7 @@ class SongModel {
 				!empty ($newSongRepresentation ["genre"] ) && ! empty ($newSongRepresentation ["length"] )) {
 			
 				if (	($this->validationSuite->isLengthStringValid ( $newSongRepresentation ["title"], TABLE_SONGS_TITLE_LENGTH )) &&
-						($this->validationSuite->isLengthStringValid ( $newSongRepresentation ["genre"], TABLE_USER_GENRE_LENGTH )) && 
+						($this->validationSuite->isLengthStringValid ( $newSongRepresentation ["genre"], TABLE_SONGS_GENRE_LENGTH )) && 
 						($this->validationSuite->isLengthTimeValid ( $newSongRepresentation ["length"]))) {
 					$updatedRows = $this->SongsDAO->update ( $newSongRepresentation, $songID );
 					if ($updatedRows > 0)

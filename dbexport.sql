@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2016 at 07:17 PM
+-- Generation Time: Apr 17, 2016 at 07:57 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `songs` (
   `title` varchar(50) NOT NULL,
   `length` varchar(5) NOT NULL,
   `genre` varchar(30) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -74,13 +74,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`) VALUES
-(1, 'Tom', 'Smith', 'test@tom.com', 1234),
-(3, 'Brian', 'Briscoe', 'a@a.com', 1234),
-(5, 'Brian', 'Tom', 'br@as.com', 1234),
-(6, 'Brad', 'aaaa', 'brad@jones.com', 1234),
-(7, 'test', 'test', 'brad@jones.com', 1234),
-(8, 'test', 'test', 'brad@jones.com', 4444),
-(9, 'test', 'test', 'brad@jones.com', 4444);
+(1, 'Tom', 'Smith', 'tom@smith.com', 1234);
 
 --
 -- Indexes for dumped tables
@@ -119,7 +113,7 @@ ALTER TABLE `artists`
 -- AUTO_INCREMENT for table `songs`
 --
 ALTER TABLE `songs`
-  MODIFY `songId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `songId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `users`
 --
