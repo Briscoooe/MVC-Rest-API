@@ -48,6 +48,64 @@ $app->map ( "/users(/:id)", "authenticate", function ($userID = null) use($app) 
 	return new loadRunMVCComponents ( "UserModel", "UserController", "jsonView", $action, $app, $parameters );
 } )->via ( "GET", "POST", "PUT", "DELETE" );
 
+$app->map ( "/artists(/:id)", function ($artistID = null) use($app) {
+
+	$httpMethod = $app->request->getMethod ();
+	$action = null;
+	$parameters ["id"] = $artistID; // prepare parameters to be passed to the controller (example: ID)
+
+	if (($artistID == null) or is_numeric ( $artistID )) {
+		switch ($httpMethod) {
+			case "GET" :
+				if ($artistID != null)
+					$action = ACTION_GET_ARTIST;
+					else
+						$action = ACTION_GET_ARTISTS;
+						break;
+			case "POST" :
+				$action = ACTION_CREATE_ARTIST;
+				break;
+			case "PUT" :
+				$action = ACTION_UPDATE_ARTIST;
+				break;
+			case "DELETE" :
+				$action = ACTION_DELETE_ARTIST;
+				break;
+			default :
+		}
+	}
+	return new loadRunMVCComponents ( "ArtistModel", "ArtistController", "jsonView", $action, $app, $parameters );
+} )->via ( "GET", "POST", "PUT", "DELETE" );
+
+$app->map ( "/songs(/:id)", function ($songID = null) use($app) {
+
+	$httpMethod = $app->request->getMethod ();
+	$action = null;
+	$parameters ["id"] = $songID; // prepare parameters to be passed to the controller (example: ID)
+
+	if (($songID == null) or is_numeric ( $songID )) {
+		switch ($httpMethod) {
+			case "GET" :
+				if ($songID != null)
+					$action = ACTION_GET_SONG;
+					else
+						$action = ACTION_GET_SONGS;
+						break;
+			case "POST" :
+				$action = ACTION_CREATE_SONG;
+				break;
+			case "PUT" :
+				$action = ACTION_UPDATE_SONG;
+				break;
+			case "DELETE" :
+				$action = ACTION_DELETE_SONG;
+				break;
+			default :
+		}
+	}
+	return new loadRunMVCComponents ( "SongModel", "SongController", "jsonView", $action, $app, $parameters );
+} )->via ( "GET", "POST", "PUT", "DELETE" );
+
 $app->run ();
 class loadRunMVCComponents {
 	public $model, $controller, $view;

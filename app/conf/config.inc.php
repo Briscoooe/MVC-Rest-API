@@ -17,6 +17,22 @@ define("ACTION_DELETE_USER", 77);
 define("ACTION_SEARCH_USERS", 88);
 define("ACTION_VALIDATE_USER", 99);
 
+/* actions for the ARTISTS REST resource */
+define("ACTION_GET_ARTIST", 33);
+define("ACTION_GET_ARTISTS", 44);
+define("ACTION_CREATE_ARTIST", 55);
+define("ACTION_UPDATE_ARTIST", 66);
+define("ACTION_DELETE_ARTIST", 77);
+define("ACTION_SEARCH_ARTISTS", 88);
+
+/* actions for the SONGS REST resource */
+define("ACTION_GET_SONG", 33);
+define("ACTION_GET_SONGS", 44);
+define("ACTION_CREATE_SONG", 55);
+define("ACTION_UPDATE_SONG", 66);
+define("ACTION_DELETE_SONG", 77);
+define("ACTION_SEARCH_SONGS", 88);
+
 /* HTTP status codes 2xx*/
 define("HTTPSTATUS_OK", 200);
 define("HTTPSTATUS_CREATED", 201);
@@ -58,11 +74,18 @@ define("GENERAL_INVALIDBODY", "Request is ok but transmitted body is invalid");
 define("GENERAL_WELCOME_MESSAGE", "Welcome to DIT web-services");
 define("GENERAL_INVALIDROUTE", "Requested route does not exist");
 
-
 /* representation of a new user in the DB */
 define("TABLE_USER_NAME_LENGTH", 25);
 define("TABLE_USER_SURNAME_LENGTH", 25);
 define("TABLE_USER_EMAIL_LENGTH", 50);
 define("TABLE_USER_PASSWORD_LENGTH", 40);
+
+/* representation of a new ARTIST in the DB */
+define("TABLE_ARTISTS_NAME_LENGTH", 50);
+define("TABLE_ARTISTS_DESC_LENGTH", 100);
+
+/* representation of a new song in the DB */
+define("TABLE_SONGS_TITLE_LENGTH", 50);
+define("TABLE_SONGS_GENRE_LENGTH", 30);
 
 ?>

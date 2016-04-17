@@ -35,5 +35,28 @@ class Validation {
 			if (strlen($string)<=$maxchars) return (true);	
 		return (false);
 	}
+	
+	/**
+	 * check whether the date passed is valid
+	 * @param $year - the year input integer
+	 * @return boolean indicating whether it is a valid date or not
+	 */
+	public function isYearValid($year) {
+		if(is_numeric($year) && $year > 1901 && $year <= date("Y"))
+			return true;
+		return false;
+	}
+	
+	/**
+	 * check whether the length of time passed is valid
+	 * @param $length - the song length string
+	 * @return boolean indicating whether it is a valid length or not
+	 */
+	public function isLengthTimeValid($length) {
+		if(is_string($length))
+			if(preg_match("/^([0-5][0-9]):([0-5][0-9])$/", $length))
+				return true;
+		return false;
+	}
 }
 ?>

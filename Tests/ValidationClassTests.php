@@ -53,5 +53,33 @@ class ValidationClassTests extends UnitTestCase {
 		$this->assertFalse ( $this->validation->isLengthStringValid ( 1, 5 ) );
 		$this->assertFalse ( $this->validation->isLengthStringValid ( "luca", "a" ) );
 	}
+	
+	public function testIsYearValid() {
+		$this->assertTrue( $this->validation->isYearValid ( 2006 ) );
+		$this->assertTrue( $this->validation->isYearValid ( 1985 ) );
+		$this->assertTrue( $this->validation->isYearValid ( "2006" ) );
+		$this->assertFalse( $this->validation->isYearValid ( "hello" ) );
+		$this->assertFalse( $this->validation->isYearValid ( 1800 ) );
+		$this->assertFalse( $this->validation->isYearValid ( 2020 ) );
+	}
+	
+	public function testisLengthTimeValid() {
+		$this->assertTrue( $this->validation->isLengthTimeValid("00:21"));
+		$this->assertTrue( $this->validation->isLengthTimeValid("59:59"));
+		$this->assertTrue( $this->validation->isLengthTimeValid("03:20"));
+		$this->assertFalse( $this->validation->isLengthTimeValid("61:00"));
+		$this->assertFalse( $this->validation->isLengthTimeValid("34:67"));
+		$this->assertFalse( $this->validation->isLengthTimeValid("161:00"));
+		$this->assertFalse( $this->validation->isLengthTimeValid("31:345"));
+		$this->assertFalse( $this->validation->isLengthTimeValid("2:32"));
+		$this->assertFalse( $this->validation->isLengthTimeValid("02:3"));
+		$this->assertFalse( $this->validation->isLengthTimeValid("2:3"));
+		$this->assertFalse( $this->validation->isLengthTimeValid("2:"));
+		$this->assertFalse( $this->validation->isLengthTimeValid(":3"));
+		$this->assertFalse( $this->validation->isLengthTimeValid(":30"));
+		$this->assertFalse( $this->validation->isLengthTimeValid(":"));
+		$this->assertFalse( $this->validation->isLengthTimeValid("test"));
+		$this->assertFalse( $this->validation->isLengthTimeValid(1234));
+	}
 }
 ?>

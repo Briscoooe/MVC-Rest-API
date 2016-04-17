@@ -13,6 +13,7 @@ class pdoDbManager {
 	private $debugMode = DB_DEBUGMODE;
 	public $INT_TYPE = PDO::PARAM_INT;
 	public $STRING_TYPE = PDO::PARAM_STR;
+	
 	function __construct() {
 	}
 	function openConnection() {
