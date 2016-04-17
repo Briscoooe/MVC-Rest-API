@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * TODO:
+ * Add search for users, artists and songs
+ * Validate that artist being added with song exists in artists table - INCLUDE new response code
+ * Add different response types
+ */
 require_once "../Slim/Slim.php";
 Slim\Slim::registerAutoloader ();
 
@@ -8,12 +15,11 @@ require_once "conf/config.inc.php";
 // route middleware for simple API authentication
 function authenticate(\Slim\Route $route) {
     $app = \Slim\Slim::getInstance();
-	$action = ACTION_VALIDATE_USER;
+	$action = ACTION_AUTHENTICATE_USER;
 	$parameters["username"] = $app->request->headers->get("username"); // prepare parameters to be passed to the controller (example: ID)
 	$parameters["password"] = $app->request->headers->get("password");
 
-	$mvc = new loadRunMVCComponents ( "UserModel", "UserController", "jsonView", $action, $app, $parameters );
-	
+	$mvc = new loadRunMVCComponents ( "AuthenticationModel", "AuthenticationController", "jsonView", $action, $app, $parameters );
     if ($mvc->model->apiResponse === false) {
       $app->halt(401);
     }
@@ -48,7 +54,7 @@ $app->map ( "/users(/:id)", "authenticate", function ($userID = null) use($app) 
 	return new loadRunMVCComponents ( "UserModel", "UserController", "jsonView", $action, $app, $parameters );
 } )->via ( "GET", "POST", "PUT", "DELETE" );
 
-$app->map ( "/artists(/:id)", function ($artistID = null) use($app) {
+$app->map ( "/artists(/:id)", "authenticate", function ($artistID = null) use($app) {
 
 	$httpMethod = $app->request->getMethod ();
 	$action = null;
@@ -77,7 +83,7 @@ $app->map ( "/artists(/:id)", function ($artistID = null) use($app) {
 	return new loadRunMVCComponents ( "ArtistModel", "ArtistController", "jsonView", $action, $app, $parameters );
 } )->via ( "GET", "POST", "PUT", "DELETE" );
 
-$app->map ( "/songs(/:id)", function ($songID = null) use($app) {
+$app->map ( "/songs(/:id)", "authenticate", function ($songID = null) use($app) {
 
 	$httpMethod = $app->request->getMethod ();
 	$action = null;

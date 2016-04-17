@@ -23,7 +23,7 @@ class UsersDAO {
 		return ($rows);
 	}
 	
-	public function validate($username, $password) {
+	public function authenticate($username, $password) {
 		$sql = "SELECT * ";
 		$sql .= "FROM users ";
 		$sql .= "WHERE users.email=? ";

@@ -15,7 +15,7 @@ define("ACTION_CREATE_USER", 55);
 define("ACTION_UPDATE_USER", 66);
 define("ACTION_DELETE_USER", 77);
 define("ACTION_SEARCH_USERS", 88);
-define("ACTION_VALIDATE_USER", 99);
+define("ACTION_AUTHENTICATE_USER", 99);
 
 /* actions for the ARTISTS REST resource */
 define("ACTION_GET_ARTIST", 33);
