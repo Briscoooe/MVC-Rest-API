@@ -11,6 +11,9 @@ class UserController {
 		if (! empty ( $parameteres ["id"] ))
 			$id = $parameteres ["id"];
 		
+		if( ! empty ( $parameteres ["searchString"]))
+			$string = $parameteres ["searchString"];
+		
 		switch ($action) {
 			case ACTION_GET_USER :
 				$this->getUser ( $id );
@@ -28,7 +31,7 @@ class UserController {
 				$this->deleteUser ( $id );
 				break;
 			case ACTION_SEARCH_USERS :
-				$string = $parameteres ["SearchingString"];
+				//$string = $parameteres ["searchString"];
 				$this->searchUsers ( $string );
 				break;	
 			case null :

@@ -6,6 +6,12 @@
  * Validate that artist being added with song exists in artists table - INCLUDE new response code if possible
  * Add XML response type
  */
+
+/*
+ * Ask luca
+ * How to validate if ID exists in table
+ * How to not have three separate search functions
+ */
 require_once "../Slim/Slim.php";
 Slim\Slim::registerAutoloader ();
 
@@ -21,7 +27,7 @@ function authenticate(\Slim\Route $route) {
 
 	$mvc = new loadRunMVCComponents ( "AuthenticationModel", "AuthenticationController", "jsonView", $action, $app, $parameters );
     if ($mvc->model->apiResponse === false) {
-      $app->halt(401);
+		$app->halt(401);
     }
 }
 
@@ -54,6 +60,23 @@ $app->map ( "/users(/:id)", "authenticate", function ($userID = null) use($app) 
 	return new loadRunMVCComponents ( "UserModel", "UserController", "jsonView", $action, $app, $parameters );
 } )->via ( "GET", "POST", "PUT", "DELETE" );
 
+$app->map ( "/users/search(/:string)", "authenticate", function ($searchString = null) use($app) {
+
+	$httpMethod = $app->request->getMethod ();
+	$action = null;
+	$parameters ["searchString"] = $searchString; // prepare parameters to be passed to the controller (example: ID)
+
+	if (($searchString == null) or is_string( $searchString )) {
+		switch ($httpMethod) {
+			case "GET" :
+				$action = ACTION_SEARCH_USERS;
+				break;
+			default :
+		}
+	}
+	return new loadRunMVCComponents ( "UserModel", "UserController", "jsonView", $action, $app, $parameters );
+} )->via ( "GET");
+
 $app->map ( "/artists(/:id)", "authenticate", function ($artistID = null) use($app) {
 
 	$httpMethod = $app->request->getMethod ();
@@ -65,9 +88,9 @@ $app->map ( "/artists(/:id)", "authenticate", function ($artistID = null) use($a
 			case "GET" :
 				if ($artistID != null)
 					$action = ACTION_GET_ARTIST;
-					else
-						$action = ACTION_GET_ARTISTS;
-						break;
+				else
+					$action = ACTION_GET_ARTISTS;
+				break;
 			case "POST" :
 				$action = ACTION_CREATE_ARTIST;
 				break;
@@ -83,6 +106,23 @@ $app->map ( "/artists(/:id)", "authenticate", function ($artistID = null) use($a
 	return new loadRunMVCComponents ( "ArtistModel", "ArtistController", "jsonView", $action, $app, $parameters );
 } )->via ( "GET", "POST", "PUT", "DELETE" );
 
+$app->map ( "/artists/search(/:string)", "authenticate", function ($searchString = null) use($app) {
+
+	$httpMethod = $app->request->getMethod ();
+	$action = null;
+	$parameters ["searchString"] = $searchString; // prepare parameters to be passed to the controller (example: ID)
+
+	if (($searchString == null) or is_string( $searchString )) {
+		switch ($httpMethod) {
+			case "GET" :
+				$action = ACTION_SEARCH_ARTISTS;
+				break;
+			default :
+		}
+	}
+	return new loadRunMVCComponents ( "ArtistModel", "ArtistController", "jsonView", $action, $app, $parameters );
+} )->via ( "GET");
+
 $app->map ( "/songs(/:id)", "authenticate", function ($songID = null) use($app) {
 
 	$httpMethod = $app->request->getMethod ();
@@ -94,9 +134,9 @@ $app->map ( "/songs(/:id)", "authenticate", function ($songID = null) use($app) 
 			case "GET" :
 				if ($songID != null)
 					$action = ACTION_GET_SONG;
-					else
-						$action = ACTION_GET_SONGS;
-						break;
+				else
+					$action = ACTION_GET_SONGS;
+				break;
 			case "POST" :
 				$action = ACTION_CREATE_SONG;
 				break;
@@ -111,6 +151,23 @@ $app->map ( "/songs(/:id)", "authenticate", function ($songID = null) use($app) 
 	}
 	return new loadRunMVCComponents ( "SongModel", "SongController", "jsonView", $action, $app, $parameters );
 } )->via ( "GET", "POST", "PUT", "DELETE" );
+
+$app->map ( "/songs/search(/:string)", "authenticate", function ($searchString = null) use($app) {
+
+	$httpMethod = $app->request->getMethod ();
+	$action = null;
+	$parameters ["searchString"] = $searchString; // prepare parameters to be passed to the controller (example: ID)
+
+	if (($searchString == null) or is_string( $searchString )) {
+		switch ($httpMethod) {
+			case "GET" :
+				$action = ACTION_SEARCH_SONGS;
+				break;
+			default :
+		}
+	}
+	return new loadRunMVCComponents ( "SongModel", "SongController", "jsonView", $action, $app, $parameters );
+} )->via ( "GET");
 
 $app->run ();
 class loadRunMVCComponents {
