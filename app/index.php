@@ -2,9 +2,7 @@
 
 /*
  * TODO:
- * Add search for users, artists and songs
  * Validate that artist being added with song exists in artists table - INCLUDE new response code if possible
- * Add XML response type
  */
 
 /*
@@ -22,13 +20,24 @@ require_once "conf/config.inc.php";
 function authenticate(\Slim\Route $route) {
     $app = \Slim\Slim::getInstance();
 	$action = ACTION_AUTHENTICATE_USER;
-	$parameters["username"] = $app->request->headers->get("username"); // prepare parameters to be passed to the controller (example: ID)
+	$parameters["username"] = $app->request->headers->get("username");
 	$parameters["password"] = $app->request->headers->get("password");
 
 	$mvc = new loadRunMVCComponents ( "AuthenticationModel", "AuthenticationController", "jsonView", $action, $app, $parameters );
     if ($mvc->model->apiResponse === false) {
 		$app->halt(401);
     }
+}
+
+function checkType($app) {
+	$viewType = $app->request->headers->get("Content-Type");
+	
+	if($viewType == RESPONSE_FORMAT_XML)
+		$viewType = "xmlView";
+	else
+		$viewType = "jsonView";
+	
+	return $viewType;
 }
 
 $app->map ( "/users(/:id)", "authenticate", function ($userID = null) use($app) {
@@ -57,7 +66,9 @@ $app->map ( "/users(/:id)", "authenticate", function ($userID = null) use($app) 
 			default :
 		}
 	}
-	return new loadRunMVCComponents ( "UserModel", "UserController", "jsonView", $action, $app, $parameters );
+	
+	$viewType = checkType($app);
+	return new loadRunMVCComponents ( "UserModel", "UserController", $viewType, $action, $app, $parameters );
 } )->via ( "GET", "POST", "PUT", "DELETE" );
 
 $app->map ( "/users/search(/:string)", "authenticate", function ($searchString = null) use($app) {
@@ -74,7 +85,9 @@ $app->map ( "/users/search(/:string)", "authenticate", function ($searchString =
 			default :
 		}
 	}
-	return new loadRunMVCComponents ( "UserModel", "UserController", "jsonView", $action, $app, $parameters );
+	
+	$viewType = checkType($app);
+	return new loadRunMVCComponents ( "UserModel", "UserController", $viewType, $action, $app, $parameters );
 } )->via ( "GET");
 
 $app->map ( "/artists(/:id)", "authenticate", function ($artistID = null) use($app) {
@@ -103,7 +116,9 @@ $app->map ( "/artists(/:id)", "authenticate", function ($artistID = null) use($a
 			default :
 		}
 	}
-	return new loadRunMVCComponents ( "ArtistModel", "ArtistController", "jsonView", $action, $app, $parameters );
+	
+	$viewType = checkType($app);
+	return new loadRunMVCComponents ( "ArtistModel", "ArtistController", $viewType, $action, $app, $parameters );
 } )->via ( "GET", "POST", "PUT", "DELETE" );
 
 $app->map ( "/artists/search(/:string)", "authenticate", function ($searchString = null) use($app) {
@@ -120,7 +135,9 @@ $app->map ( "/artists/search(/:string)", "authenticate", function ($searchString
 			default :
 		}
 	}
-	return new loadRunMVCComponents ( "ArtistModel", "ArtistController", "jsonView", $action, $app, $parameters );
+	
+	$viewType = checkType($app);
+	return new loadRunMVCComponents ( "ArtistModel", "ArtistController", $viewType, $action, $app, $parameters );
 } )->via ( "GET");
 
 $app->map ( "/songs(/:id)", "authenticate", function ($songID = null) use($app) {
@@ -149,7 +166,9 @@ $app->map ( "/songs(/:id)", "authenticate", function ($songID = null) use($app) 
 			default :
 		}
 	}
-	return new loadRunMVCComponents ( "SongModel", "SongController", "jsonView", $action, $app, $parameters );
+	
+	$viewType = checkType($app);
+	return new loadRunMVCComponents ( "SongModel", "SongController", $viewType, $action, $app, $parameters );
 } )->via ( "GET", "POST", "PUT", "DELETE" );
 
 $app->map ( "/songs/search(/:string)", "authenticate", function ($searchString = null) use($app) {
@@ -166,7 +185,9 @@ $app->map ( "/songs/search(/:string)", "authenticate", function ($searchString =
 			default :
 		}
 	}
-	return new loadRunMVCComponents ( "SongModel", "SongController", "jsonView", $action, $app, $parameters );
+	
+	$viewType = checkType($app);
+	return new loadRunMVCComponents ( "SongModel", "SongController", $viewType, $action, $app, $parameters );
 } )->via ( "GET");
 
 $app->run ();

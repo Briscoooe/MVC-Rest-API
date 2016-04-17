@@ -11,5 +11,6 @@ class jsonView {
 		$jsonResponse = json_encode ( $this->model->apiResponse );
 		$this->slimApp->response->write ( $jsonResponse );
 	}
+
 }
 ?>

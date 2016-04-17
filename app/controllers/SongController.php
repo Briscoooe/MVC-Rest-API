@@ -10,9 +10,6 @@ class SongController {
 		
 		if (! empty ( $parameteres ["id"] ))
 			$id = $parameteres ["id"];
-		
-		if( ! empty ( $parameteres ["searchString"]))
-			$string = $parameteres ["searchString"];
 			
 		switch ($action) {
 			case ACTION_GET_SONG :
@@ -31,7 +28,7 @@ class SongController {
 				$this->deleteSong ( $id );
 				break;
 			case ACTION_SEARCH_SONGS :
-				//$string = $parameteres ["searchString"];
+				$string = $parameteres ["searchString"];
 				$this->searchSongs ( $string );
 				break;
 			case null :

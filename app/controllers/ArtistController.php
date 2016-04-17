@@ -10,9 +10,6 @@ class ArtistController {
 		
 		if (! empty ( $parameteres ["id"] ))
 			$id = $parameteres ["id"];
-		
-		if( ! empty ( $parameteres ["searchString"]))
-			$string = $parameteres ["searchString"];
 			
 		switch ($action) {
 			case ACTION_GET_ARTIST :
@@ -31,7 +28,7 @@ class ArtistController {
 				$this->deleteArtist ( $id );
 				break;
 			case ACTION_SEARCH_ARTISTS :
-				//$string = $parameteres ["searchString"];
+				$string = $parameteres ["searchString"];
 				$this->searchArtists ( $string );
 				break;
 			case null :

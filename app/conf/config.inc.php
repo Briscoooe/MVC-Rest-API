@@ -74,6 +74,11 @@ define("GENERAL_INVALIDBODY", "Request is ok but transmitted body is invalid");
 define("GENERAL_WELCOME_MESSAGE", "Welcome to DIT web-services");
 define("GENERAL_INVALIDROUTE", "Requested route does not exist");
 
+/* response format constants*/
+
+define("RESPONSE_FORMAT_JSON", "application/json");
+define("RESPONSE_FORMAT_XML", "application/xml");
+
 /* representation of a new user in the DB */
 define("TABLE_USER_NAME_LENGTH", 25);
 define("TABLE_USER_SURNAME_LENGTH", 25);
