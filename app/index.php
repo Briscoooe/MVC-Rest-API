@@ -2,12 +2,8 @@
 
 /*
  * TODO:
- * Validate that artist being added with song exists in artists table - INCLUDE new response code if possible
- */
-
-/*
  * Ask luca
- * How to validate if ID exists in table
+ * How to validate if ID exists in table -  try catch allowed?
  * How to not have three separate search functions
  */
 require_once "../Slim/Slim.php";

@@ -28,8 +28,12 @@ class SongModel {
 			if (	($this->validationSuite->isLengthStringValid ( $newSong ["title"], TABLE_SONGS_TITLE_LENGTH)) && 
 					($this->validationSuite->isLengthStringValid ( $newSong ["genre"], TABLE_SONGS_GENRE_LENGTH )) && 
 					($this->validationSuite->isLengthTimeValid ( $newSong ["length"]))) {
-				if ($newId = $this->SongsDAO->insert ( $newSong ))
+				try {
+					$newId = $this->SongsDAO->insert ( $newSong );
 					return ($newId);
+				} catch (Exception $e) {
+						return false;
+					}
 			}
 		}
 		
