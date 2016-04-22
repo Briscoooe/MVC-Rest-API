@@ -5,6 +5,7 @@
  * Ask luca
  * How to validate if ID exists in table -  try catch allowed?
  * How to not have three separate search functions
+ * Ask which XML implementation is better
  */
 require_once "../Slim/Slim.php";
 Slim\Slim::registerAutoloader ();

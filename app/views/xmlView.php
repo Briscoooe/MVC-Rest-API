@@ -8,9 +8,12 @@ class xmlView {
 	}
 	public function output() {
 		// prepare xml response
+		
+		// Method 1 - uses native method
 		//$xmlResponse = xmlrpc_encode ( $this->model->apiResponse );
 		//$this->slimApp->response->write($xmlResponse);
 		
+		// Method 2 - uses function below
 		$xml = new SimpleXMLElement('<root/>');
 		$this->xml_encode($xml, $this->model->apiResponse);
 		$data = $xml->asXML();
