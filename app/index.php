@@ -5,7 +5,6 @@
  * Ask luca
  * How to validate if ID exists in table -  try catch allowed?
  * How to not have three separate search functions
- * Ask which XML implementation is better
  */
 require_once "../Slim/Slim.php";
 Slim\Slim::registerAutoloader ();
@@ -20,7 +19,7 @@ function authenticate(\Slim\Route $route) {
 	$parameters["username"] = $app->request->headers->get("username");
 	$parameters["password"] = $app->request->headers->get("password");
 
-	$mvc = new loadRunMVCComponents ( "AuthenticationModel", "AuthenticationController", "jsonView", $action, $app, $parameters );
+	$mvc = new loadRunMVCComponents ( "UserModel", "UserController", "jsonView", $action, $app, $parameters );
     if ($mvc->model->apiResponse === false) {
 		$app->halt(401);
     }
